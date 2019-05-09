@@ -1,0 +1,1 @@
+[{"name": "test.test_dna_to_rna.TestDnaToRna.test_first", "status": "passed", "message": "", "passed": true, "points": ["p07-01.1"], "backtrace": []}, {"name": "test.test_dna_to_rna.TestDnaToRna.test_second", "status": "passed", "message": "", "passed": true, "points": ["p07-01.1"], "backtrace": []}]

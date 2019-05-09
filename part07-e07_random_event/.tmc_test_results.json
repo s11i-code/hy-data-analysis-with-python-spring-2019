@@ -1,0 +1,1 @@
+[{"name": "test.test_random_event.TestRandomEvent.test_first", "status": "passed", "message": "", "passed": true, "points": ["p07-07.1"], "backtrace": []}, {"name": "test.test_random_event.TestRandomEvent.test_second", "status": "passed", "message": "", "passed": true, "points": ["p07-07.1"], "backtrace": []}]
