@@ -18,7 +18,7 @@ def is_subset(set1, set2):
 @points('p07-17.1')
 class TestSampleFromConcatenation(unittest.TestCase):
 
-    
+
     # def test_first(self):
     #     k=2
     #     s="ATGATATCATCGACGATGTAG"
@@ -34,7 +34,7 @@ class TestSampleFromConcatenation(unittest.TestCase):
         mc = MarkovChain(s, k)
         t = mc.generate(1, seed)
         self.assertEqual(len(t), 1, msg="generate does not work if string of length one is requested!")
-        
+
     def test_deterministic(self):
         k=2
         s="ATGATATCATCGACGATGTAG"
@@ -43,7 +43,7 @@ class TestSampleFromConcatenation(unittest.TestCase):
         s1 = mc.generate(40, seed)
         s2 = mc.generate(40, seed)
         self.assertEqual(s1, s2, msg="Generate method should always return the same result, if the same seed and length used!")
-        
+
     def test_second(self):
         s="ATGATATCATCGACGATGTAG"
         seed=0
@@ -57,4 +57,4 @@ class TestSampleFromConcatenation(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    
+
