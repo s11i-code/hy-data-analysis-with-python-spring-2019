@@ -12,10 +12,10 @@ def kmer_gen(string, k):
         yield (kmer, next_n)
 
 def context_list(s, k):
-    kmers = defaultdict(str)
+    contexts = defaultdict(str)
     for kmer, next_n in kmer_gen(s, k):
-        kmers[kmer] = kmers[kmer] + next_n
-    return dict(kmers)
+        contexts[kmer] = contexts[kmer] + next_n
+    return dict(contexts)
 
 if __name__ == '__main__':
     k=2

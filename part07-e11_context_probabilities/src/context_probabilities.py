@@ -2,7 +2,6 @@
 
 import sys
 from collections import defaultdict
-from pprint import PrettyPrinter
 
 def kmer_gen(string, k):
     idx = 0
@@ -18,11 +17,12 @@ def context_list(s, k):
         kmers[kmer] = kmers[kmer] + next_n
     return dict(kmers)
 
-NUCLEOTIDES = ['A', 'T', 'G', 'C']
+NUCLEOTIDES = 'ATGC'
+
 def context_probabilities(s, k):
     kmers = defaultdict(list)
     for kmer, context in context_list(s, k).items():
-        kmers[kmer] = {str(n): context.count(n)/len(context) for n in NUCLEOTIDES}
+        kmers[kmer] = {str(n): context.count(n)/len(context) for n in list(NUCLEOTIDES)}
     return dict(kmers)
 
 if __name__ == '__main__':
@@ -34,5 +34,6 @@ if __name__ == '__main__':
     else:
         s = "ATGATATCATCGACGATGTAG"
         d = context_probabilities(s, k)
-        pp = PrettyPrinter()
-        pp.pprint(d)
+        from pprint import PrettyPrinter
+        PrettyPrinter().pprint(d)
+

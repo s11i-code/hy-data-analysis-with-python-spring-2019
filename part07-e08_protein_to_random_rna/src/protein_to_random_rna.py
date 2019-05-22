@@ -21,14 +21,14 @@ class ProteinToRandomRNA(object):
         self.codon_probs = CODON_PROBS
         self.aa_to_rna = AA_TO_RNA
 
-    def __get_random_codon_from_distribution(self, aa_list):
-        candidates = {key:self.codon_probs[key] for key in aa_list}
-        return random_event(candidates)
+    def __get_random_codon_from_distribution(self, aa):
+        candidate_codons = self.aa_to_rna[aa]
+        candidate_codons = {key:self.codon_probs[key] for key in candidate_codons}
+        return random_event(candidate_codons)
 
     def convert(self, s):
-        max_prob_rna = [self.__get_random_codon_from_distribution(self.aa_to_rna[aa]) for aa in list(s)]
+        max_prob_rna = [self.__get_random_codon_from_distribution(aa) for aa in list(s)]
         return "".join(max_prob_rna)
-
 
 if __name__ == '__main__':
     import sys

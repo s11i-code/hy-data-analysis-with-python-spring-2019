@@ -23,10 +23,10 @@ def random_event(dist):
     """Takes as input a dictionary from events to their probabilities.
 Return a random event sampled according to the given distribution.
 The probabilities must sum to 1.0"""
+    probs = np.array(list(dist.values()))
     #normalize because due to rounding,
     #probabilities do not sum to exactly 1
     #and numpy complains
-    probs = np.array(list(dist.values()))
     normalized_probs = probs/probs.sum()
     return np.random.choice(list(dist.keys()), 1, p=list(normalized_probs))[0]
 
@@ -38,17 +38,15 @@ class MarkovChain(object):
         self.kth = kth
 
     def generate(self, n, seed=None):
-        np.random.seed(seed)   # Initialize random number generator
-        if(n == 0):
-            return ""
-        elif(n == 1):
-            return np.random.choice(['A', 'C', 'G', 'T'])
+        np.random.seed(seed) # Initialize random number generator
+        if(n < self.k):
+            return random_event(zeroth)*n
         #sample the first k-mer:
         seq = np.random.choice(list(self.kth.keys()))
         for idx in range(0, n - self.k):
             last_kmer = seq[idx: idx + self.k]
-            event = random_event(self.kth[last_kmer])
-            seq = seq + event
+            sample_nuc = random_event(self.kth[last_kmer])
+            seq = seq + sample_nuc
         return seq
 
 if __name__ == '__main__':
@@ -64,6 +62,6 @@ if __name__ == '__main__':
 
     try:
         mc = MarkovChain(k, zeroth, kth)
-        print('seq: ', mc.generate(n, seed))
+        print('seq: ', mc.generate(10, seed))
     except KeyError as e:
         print(e)

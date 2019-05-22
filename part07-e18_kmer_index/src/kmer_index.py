@@ -3,8 +3,21 @@
 import sys
 from collections import defaultdict
 
+
+def sliding_window(s, k):
+    """This function returns a generator that can be iterated over all
+starting position of a k-window in the sequence."""
+    idx = 0
+    while(idx+k <= len(s)):
+        kmer = s[idx:idx+k]
+        yield(kmer, idx)
+        idx = idx + 1
+
 def kmer_index(s, k):
-    return {}
+    indices = defaultdict(list)
+    for kmer, idx in sliding_window(s, k):
+        indices[kmer].append(idx)
+    return indices
 
 if __name__ == '__main__':
     k=2

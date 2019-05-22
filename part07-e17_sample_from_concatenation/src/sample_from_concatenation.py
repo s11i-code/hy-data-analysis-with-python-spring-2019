@@ -52,10 +52,8 @@ class MarkovChain(object):
         if seed != None:
             print("Seed is", seed)
             random.seed(seed)
-        if(n == 0):
-            return ""
-        elif(n == 1):
-            return random.choice(list(NUCLEOTIDES),)
+        if(n < self.k):
+            return n*random.choice(list(NUCLEOTIDES))
         #sample the first k-mer:
         seq = random.choice(list(self.contexts.keys()))
         for idx in range(0, n - self.k):
@@ -83,5 +81,5 @@ if __name__ == '__main__':
     except IndexError:
         seed = None
 
-    mc = MarkovChain(s, k)
-    print(mc.generate(39, seed))
+    mc = MarkovChain(s, 3)
+    print(mc.generate(10, 0))

@@ -25,5 +25,5 @@ def get_dict():
 
 if __name__ == '__main__':
     aa_to_codons = get_dict()
-    print(aa_to_codons)
-
+    from pprint import PrettyPrinter
+    PrettyPrinter().pprint(aa_to_codons)

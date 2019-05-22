@@ -12,7 +12,6 @@ in the window as a dictionary."""
     idx = 0
     while(idx+k <= len(s)):
         kmer = s[idx:idx+k]
-        print('kmer:', kmer)
         letter_freqs = {str(nuc):kmer.count(nuc) for nuc in list(NUCLEOTIDES)}
         idx = idx + 1
         yield(letter_freqs)

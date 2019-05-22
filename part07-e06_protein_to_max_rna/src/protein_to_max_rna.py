@@ -9,12 +9,13 @@ class ProteinToMaxRNA(object):
         self.codon_probs = CODON_PROBS
         self.aa_to_rna = AA_TO_RNA
 
-    def __get_codon_with_max_prob(self, aa_list):
-        candidates = {key:self.codon_probs[key] for key in aa_list}
-        return max(candidates, key=candidates.get)
+    def __get_codon_with_max_prob(self, aa):
+        candidate_codons = self.aa_to_rna[aa]
+        candidate_codons = {key:self.codon_probs[key] for key in candidate_codons}
+        return max(candidate_codons, key=candidate_codons.get)
 
     def convert(self, s):
-        max_prob_rna = [self.__get_codon_with_max_prob(self.aa_to_rna[aa]) for aa in list(s)]
+        max_prob_rna = [self.__get_codon_with_max_prob(aa) for aa in list(s)]
         return "".join(max_prob_rna)
 
 if __name__ == '__main__':

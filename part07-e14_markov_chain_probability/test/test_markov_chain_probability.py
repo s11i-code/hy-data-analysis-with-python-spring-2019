@@ -17,9 +17,9 @@ def random_nucleotide_sequence(length):
 
 def all_kmers(k):
     """A generator that can be used to iterate through all k-mers.
-Usage: for kmer in all_kmers(k):
+    Usage: for kmer in all_kmers(k):
            do_something(kmer)
-"""
+    """
     if k==0:
         yield ""
     else:

@@ -6,7 +6,7 @@ import numpy as np
 from pprint import PrettyPrinter
 
 NUCLEOTIDES = ['A', 'T', 'G', 'C']
-#assign prob 0.25 to each nucleotide when kmer not found:
+#assign prob 0.25 to each nucleotide when preceding kmer not found:
 MISSING_KMER_PROB = dict(zip(NUCLEOTIDES, [1/len(NUCLEOTIDES)]*len(NUCLEOTIDES)))
 
 def all_kmers(k):
@@ -33,7 +33,6 @@ def kmers_in_str(string, k):
     idx = 0
     while idx < len(string) - k:
         kmer = string[idx:idx+k]
-        print('in ', string, 'kmer', kmer)
         next_n = string[idx+k]
         idx += 1
         yield (kmer, next_n)
@@ -46,15 +45,16 @@ def context_list(s, k):
 
 def get_pseudo_probs(context):
     pseudo_total = len(context) + len(NUCLEOTIDES)
-    return {str(nuc): round((context.count(nuc) + 1)/pseudo_total, 3) for nuc in NUCLEOTIDES}
+    return {str(nuc): (context.count(nuc) + 1)/pseudo_total for nuc in NUCLEOTIDES}
 
 def context_probabilities(s, k):
-    found_kmers = dict(context_list(s, k))
+    contexts = dict(context_list(s, k))
     kmers = {}
-
+    if(k == 0):
+        return get_pseudo_probs(s)
     for kmer in all_kmers(k):
-        if(kmer in found_kmers):
-            kmers[kmer] = get_pseudo_probs(found_kmers[kmer])
+        if(kmer in contexts):
+            kmers[kmer] = get_pseudo_probs(contexts[kmer])
         else:
             kmers[kmer] = MISSING_KMER_PROB
     return kmers
@@ -69,9 +69,10 @@ if __name__ == '__main__':
         d=context_probabilities(s, k)
         print(d)
     else:
-        k=2
         s="ATGATATCATCGACGATGTAG"
-        d=context_probabilities("ATGATATCATCGACGATGTAG", 2)
         pp = PrettyPrinter()
-        pp.pprint(d)
+        print("K=2:")
+        pp.pprint(context_probabilities("ATGATATCATCGACGATGTAG", 2))
+        print("K=0:")
+        pp.pprint(context_probabilities("ATGATATCATCGACGATGTAG", 0))
 

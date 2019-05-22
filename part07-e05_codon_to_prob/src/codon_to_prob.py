@@ -30,5 +30,6 @@ def get_dict():
 
 if __name__ == '__main__':
     codon_to_prob = get_dict()
-    print(codon_to_prob)
+    from pprint import PrettyPrinter
+    PrettyPrinter().pprint(codon_to_prob)
 

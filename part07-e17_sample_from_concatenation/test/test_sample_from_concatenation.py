@@ -52,7 +52,7 @@ class TestSampleFromConcatenation(unittest.TestCase):
                 mc = MarkovChain(s, k)
                 s2 = mc.generate(n, seed)
                 self.assertEqual(len(s2), n)
-                self.assertTrue(is_subset(s2, "ACGT"))
+                self.assertTrue(is_subset(s2, "ACGT"), msg='msg')
 
 
 if __name__ == '__main__':
